@@ -5,13 +5,21 @@ import RoutePath from './utils/RoutePath';
 import "antd/dist/antd.css"
 import "./css/App.css";
 import { useEffect } from 'react';
-import {Auth } from "@aws-amplify/auth"
+import { Auth } from "@aws-amplify/auth"
 
 function App() {
   useEffect(() => {
     Auth.currentCredentials();
+    const init = async () => {
+      try {
+        await Auth.currentAuthenticatedUser();
+      } catch {
+        console.log(Auth.signIn("nghaninn", "1234Qwer"))
+      }
+    }
+    init();
   }, [])
-  
+
   return (
     <BrowserRouter>
       <div className="default-theme">
